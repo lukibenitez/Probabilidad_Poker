@@ -7,52 +7,41 @@ namespace Poker
     {
         static void Main(string[] args)
         {
-            Deck deck = new Deck();
-            deck.Shuffle();
-            //Console.WriteLine(deck.Deal());
-            //Console.WriteLine(deck.DealHand());
-
-            //Console.WriteLine(deck.DealHand());
-
-            Console.WriteLine("Jugador 1");
-            Console.WriteLine(deck.Deal());
-
-            Hand jugador1 = deck.DealHand();
-            Console.WriteLine();
-            jugador1.Print();
-            Console.WriteLine();
-
-            deck.color();
-            deck.color();
-
-/*
-            Console.WriteLine("Jugador 2");
-            Hand jugador2 = deck.DealHand();
-            jugador2.Print();
-
-            if (jugador1 > jugador2)
+            Mazo mazo = new Mazo();
+            Menu menu = new Menu();
+            //menu.Start(mazo);
+            bool keepAsking;
+            do
             {
-                Console.WriteLine("Gano Jugador 1");
-            }
-            */
+                keepAsking = false;
 
-            //Console.ReadKey();
-
-        }
-/*
-        public void color()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                Console.WriteLine();
-                if (cards )
+                try
                 {
-
+                    menu.Start(mazo);
                 }
-
+                catch (System.Exception)
+                {
+                    Console.WriteLine("\nEscribiste una opción incorrecta o lo hiciste de manera incorrecta. Intente de nuevo.");
+                    keepAsking = true;
+                }
             }
-        }
-*/
+            while (keepAsking);
 
+            // Console.WriteLine("Hello tell me an option");
+            // string options = Console.ReadLine();
+
+            // Console.WriteLine("Now, tel me a card");
+
+            // string card = Console.ReadLine();
+
+            // Console.WriteLine($"You have said: option {options}, card {card}");
+
+            // Console.ReadKey();
+
+
+
+
+
+        }
     }
 }
