@@ -8,27 +8,40 @@ namespace Poker
         static void Main(string[] args)
         {
             Mazo mazo = new Mazo();
-            
-            //Console.WriteLine(mazo.MazoCartas.Count);
+            Menu menu = new Menu();
+            //menu.Start(mazo);
+            bool keepAsking;
+            do
+            {
+                keepAsking = false;
 
-            // foreach (var carta in mazo.MazoCartas)
-            // {
-            //     Console.WriteLine($"Soy la carta {carta.Valor} de {carta.Palo.Nombre}");
-            // }
-            Repartidora repartidora = new Repartidora();
-            repartidora.Repartir(mazo);
-            Console.WriteLine("\nLas cartas que me tocaron son: ");
-            foreach (var miscartas in repartidora.MisCartas)
-            {
-                Console.WriteLine(miscartas.Descripcion);
+                try
+                {
+                    menu.Start(mazo);
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("\nEscribiste una opción incorrecta o lo hiciste de manera incorrecta. Intente de nuevo.");
+                    keepAsking = true;
+                }
             }
-            Console.WriteLine("\n Las cartas en la mesa son: ");
-            foreach (var cartasMesa in repartidora.CartasEnMesa)
-            {
-                Console.WriteLine(cartasMesa.Descripcion);
-            }
-            
-           // Console.WriteLine(repartidora.CartasEnMesa);
+            while (keepAsking);
+
+            // Console.WriteLine("Hello tell me an option");
+            // string options = Console.ReadLine();
+
+            // Console.WriteLine("Now, tel me a card");
+
+            // string card = Console.ReadLine();
+
+            // Console.WriteLine($"You have said: option {options}, card {card}");
+
+            // Console.ReadKey();
+
+
+
+
+
         }
     }
 }

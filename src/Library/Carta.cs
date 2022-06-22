@@ -12,7 +12,7 @@ namespace Poker
 
         public IPalo Palo {get{return this.palo;}}
         public string Valor {get{return this.valor;}}
-        public Carta(IPalo palo, string valor)
+        public Carta(string valor, IPalo palo)
         {
             this.palo = palo;
             this.valor = valor;

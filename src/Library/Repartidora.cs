@@ -11,7 +11,7 @@ namespace Poker
 
         public List<Carta> MisCartas { get { return this.misCartas; } }
         public List<Carta> CartasEnMesa { get { return this.cartasEnMesa; } }
-        public void Repartir(Mazo mazo)
+        public void RepartirMisCartas(Mazo mazo)
         {
             Random random = new Random();
             for (int i = 1; i < 3; i++)
@@ -24,12 +24,14 @@ namespace Poker
                 numerosAleatorios.Add(randomCarta);
                 misCartas.Add(mazo.MazoCartas[randomCarta]);
                 mazo.MazoCartas.RemoveAt(randomCarta);
-
             }
+        }
 
+        public void RepartirCartasEnMesa(Mazo mazo)
+        {
+            Random random = new Random();
             for (int i = 1; i < 6; i++)
             {
-
                 int randomCarta = random.Next(0, 51);
                 while (numerosAleatorios.Contains(randomCarta))
                 {
@@ -40,5 +42,7 @@ namespace Poker
                 mazo.MazoCartas.RemoveAt(randomCarta);
             }
         }
+
+        
     }
 }

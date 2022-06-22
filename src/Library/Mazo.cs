@@ -10,7 +10,7 @@ namespace Poker
         public Mazo() 
         {
             Corazones corazones = new Corazones();
-            Diamante diamante = new Diamante();
+            Diamantes diamante = new Diamantes();
             Picas picas = new Picas();
             Trebol trebol = new Trebol();
 

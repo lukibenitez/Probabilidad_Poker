@@ -3,25 +3,26 @@ using System.Collections.Generic;
 
 namespace Poker
 {
-    public class Corazones : IPalo
+    public class Picas : IPalo
     {
-        private string nombre = "corazones";
+        private string nombre = "picas";
         public string Nombre { get { return this.nombre; } }
         private List<Carta> cartas = new List<Carta>();
 
         public List<Carta> Cartas { get { return this.cartas; } }
         private Carta aloneCarta;
-        public Corazones(string value)
+        public Picas(string value)
         {
             this.aloneCarta = new Carta(value, this);
         }
         public Carta AloneCarta { get { return this.aloneCarta;} }
-        public Corazones()
+
+        public Picas()
         {
             for (int i = 2; i < 11; i++)
             {
-                Carta cartasCorazones = new Carta(i.ToString(), this);
-                cartas.Add(cartasCorazones);
+                Carta cartasPicas = new Carta(i.ToString(), this);
+                cartas.Add(cartasPicas);
             }
             Carta j = new Carta("J", this);
             cartas.Add(j);
