@@ -17,7 +17,7 @@ namespace Poker
             }
             if (repartidora.MisCartas[0].Palo.Nombre == repartidora.MisCartas[1].Palo.Nombre) //mis dos cartas son del mismo palo
             {
-                mediumProbability = ((Maths.Combinaciones(11, 3) * Maths.Combinaciones(39, 2)) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(12, 4) * 39) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(12, 5)) / (Maths.Combinaciones(50, 5))); //ESTE ESTA PERFECTO
+                mediumProbability = ((Maths.Combinaciones(11, 3) * Maths.Combinaciones(39, 2)) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(11, 4) * 39) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(11, 5)) / (Maths.Combinaciones(50, 5))); //ESTE ESTA PERFECTO
             }
             finalProbability = (inicialProbability + mediumProbability) * 100;
             return finalProbability;
