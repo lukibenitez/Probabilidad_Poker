@@ -13,7 +13,7 @@ namespace Poker
         {
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("\nBienvenido al programa que calcula las probabilidades del Poker!!\n 1- Pulsa '1' para que te repartamos tus 2 cartas aleatoreamente.\n 2- Pulsa '2' para elegir tus 2 cartas.");
-            int response = Convert.ToInt16(Console.ReadLine());
+            int response = Convert.ToInt32(Console.ReadLine());
             //int response = 2;
             switch (response)
             {
@@ -67,8 +67,13 @@ namespace Poker
                 case 1:
                     Console.WriteLine($"La probabilidad de obtener un Color con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfColor(repartidora)}%");
                     break;
+                case 2:
+                Console.WriteLine($"La probabilidad de obtener un Full House con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfFullHouse(repartidora)}%");
+                    
+                break;
+                
                 case 4:
-                    Console.WriteLine($"La probabilidad de obtener un Color con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfEscaleraReal(repartidora)}%");
+                    Console.WriteLine($"La probabilidad de obtener una Escalera Real con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfEscaleraReal(repartidora)}%");
 
                     break;
                 default:
