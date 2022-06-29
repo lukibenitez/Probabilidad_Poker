@@ -31,7 +31,7 @@ namespace Poker
             else if (response.Trim() == "manual")
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y A-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
+                Console.WriteLine("\n¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y A-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
                 Console.ForegroundColor = ConsoleColor.White;
                 string newResponse = Console.ReadLine();
                 
