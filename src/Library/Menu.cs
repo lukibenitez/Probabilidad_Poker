@@ -5,16 +5,16 @@ namespace Poker
 {
     public class Menu
     {
-        private bool randomOrNot = false;
+
         private Repartidora repartidora = new Repartidora();
         private Probability probability = new Probability();
-        //private bool correctResponse = false;
+        
         public void Start(Mazo mazo)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("\nBienvenido al programa que calcula las probabilidades del Poker!!\n 1- Pulsa '1' para que te repartamos tus 2 cartas aleatoreamente.\n 2- Pulsa '2' para elegir tus 2 cartas.");
             int response = Convert.ToInt32(Console.ReadLine());
-            //int response = 2;
+            
             switch (response)
             {
                 case 1: //anda bien
@@ -33,8 +33,9 @@ namespace Poker
                     Console.WriteLine("¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y A-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
                     Console.ForegroundColor = ConsoleColor.White;
                     string newResponse = Console.ReadLine().ToString();
-                    //string newResponse = "A-picas y Q-picas";
-                    string[] splitCards = newResponse.Split("y");
+                    //string newResponse = "K-corazones y K-trebol";
+                    
+                    string[] splitCards = newResponse.ToLower().Split("y");
 
                     foreach (var card in splitCards)
                     {
@@ -54,13 +55,12 @@ namespace Poker
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     throw new WrongResponseException("Escribiste una opción incorrecta o lo hiciste de manera incorrecta. Intente de nuevo.");
                     Console.ForegroundColor = ConsoleColor.White;
-                    //Console.WriteLine("No se preogramar");
                     break;
             }
             Console.WriteLine($"\nDe que jugada quieres calcular la probabilidad?\n ");
-            Console.WriteLine("Pulsa '1' para calcular la probabilidad de obtener Color. \nPulsa '2' para calcular la probabilidad de obtener Full House.\nPulsa '3' para calcular la probabilidad de obtener Póker.\nPulsa '4' para calcular la probabilidad de obtener Escalera Real.");
+            Console.WriteLine("Pulsa '1' para calcular la probabilidad de obtener Color. \nPulsa '2' para calcular la probabilidad de obtener Full House.\nPulsa '3' para calcular la probabilidad de obtener Escalera Real.");
             int responseProbability = Convert.ToInt16(Console.ReadLine()); ;
-            //int responseProbability = 1;
+            //int responseProbability = 3;
 
             switch (responseProbability)
             {
@@ -68,22 +68,15 @@ namespace Poker
                     Console.WriteLine($"La probabilidad de obtener un Color con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfColor(repartidora)}%");
                     break;
                 case 2:
-                Console.WriteLine($"La probabilidad de obtener un Full House con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfFullHouse(repartidora)}%");
-                    
-                break;
-                
-                case 4:
+                    Console.WriteLine($"La probabilidad de obtener un Full House con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfFullHouse(repartidora)}%");
+                    break;
+                case 3:
                     Console.WriteLine($"La probabilidad de obtener una Escalera Real con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfEscaleraReal(repartidora)}%");
-
                     break;
                 default:
                     break;
             }
-
-
-
         }
-
         private void transformStringToPalo(string value, string paloString, Mazo mazo)
         {
             if (paloString.Trim().Equals("diamantes"))
@@ -116,27 +109,6 @@ namespace Poker
                 throw new WrongResponseException("Escribiste mal el formato de la carta.");
             }
         }
-
-        //private void nextResponse()
-        // {
-        //     Console.WriteLine("¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y AS-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
-        //     string response = Console.ReadLine();
-        //     response1.Trim();
-        //     string[] splitCards = response1.Split("y");
-
-        //     foreach (var card in splitCards)
-        //     {
-        //         string[] valueAndPalo = card.Split("-");
-        //         transformStringToPalo(valueAndPalo[0], valueAndPalo[1]);
-        //         transformStringToPalo(valueAndPalo[2], valueAndPalo[3]);
-        //     }
-        //     Console.WriteLine($"\nTus cartas son .");
-        //     Printer.Print(repartidora.MisCartas);
-        //     Console.WriteLine($"\nLas cartas que salieron en la mesa son. ");
-        //     Printer.Print(repartidora.CartasEnMesa);
-        // }
-
-        public bool RandomOrNot { get { return this.randomOrNot; } }
     }
 }
 

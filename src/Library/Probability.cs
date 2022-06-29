@@ -5,7 +5,10 @@ namespace Poker
         private double inicialProbability = 0;
         private double mediumProbability = 0;
         private double finalProbability = 0;
-        private List<string> numerosReales = new List<string>();
+        private List<string> numerosReales = new List<string>()
+        {
+            "10", "J", "Q", "K", "A", "j", "q", "k", "a"
+        };
 
         public double probabilityOfColor(Repartidora repartidora)
         {
@@ -17,16 +20,49 @@ namespace Poker
             }
             if (repartidora.MisCartas[0].Palo.Nombre == repartidora.MisCartas[1].Palo.Nombre) //mis dos cartas son del mismo palo
             {
+
                 mediumProbability = ((Maths.Combinaciones(11, 3) * Maths.Combinaciones(39, 2)) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(11, 4) * 39) / (Maths.Combinaciones(50, 5))) + ((Maths.Combinaciones(11, 5)) / (Maths.Combinaciones(50, 5))); //ESTE ESTA PERFECTO
             }
             finalProbability = (inicialProbability + mediumProbability) * 100;
             return finalProbability;
         }
 
-        // public double probabilityOfPoker(Repartidora repartidora)
-        // {
+        public double probabilityOfEscaleraReal(Repartidora repartidora) // esta bien
+        {
+            // -----------3 CHANCES-------------
+            //1. Que salga escalera real en la mesa.
+            //2. Que salga escalera real con una de mis cartas.
+            //3. Que salga escalera real con mis dos cartas. 
+            
+            if ( !((numerosReales.Contains(repartidora.MisCartas[0].Valor)) &&  (numerosReales.Contains(repartidora.MisCartas[1].Valor))) )
+            {
+                //2-picas y 3-picas
+                inicialProbability = (4) / (Maths.Combinaciones(50, 5)); //bien, tenemos lo mismo con franco.
+            }
+            
+            if (repartidora.MisCartas[0].Palo.Nombre == repartidora.MisCartas[1].Palo.Nombre && numerosReales.Contains(repartidora.MisCartas[0].Valor) && numerosReales.Contains(repartidora.MisCartas[1].Valor) &&(repartidora.MisCartas[0].Valor != repartidora.MisCartas[1].Valor)) // mis cartas son del mismo palo y son valores reales distintos 
+            {
+                //A-corazones y K-corazones
+                inicialProbability = (3) / (Maths.Combinaciones(50, 5));
+                mediumProbability = (Maths.Combinaciones(47, 2)) / (Maths.Combinaciones(50, 5));
+            }
 
-        // }
+            if ( (numerosReales.Contains(repartidora.MisCartas[0].Valor) && ! numerosReales.Contains(repartidora.MisCartas[1].Valor)) || ( numerosReales.Contains(repartidora.MisCartas[1].Valor)&& ! numerosReales.Contains(repartidora.MisCartas[0].Valor))) // mis cartas son del mismo palo y son valores reales)
+            {
+                //Q-picas y 3-picas
+                inicialProbability = (3) / (Maths.Combinaciones(50, 5));
+                mediumProbability = (46) / (Maths.Combinaciones(50, 5)); //primer audio min 3:00
+            }
+            if (  (repartidora.MisCartas[0].Palo.Nombre != repartidora.MisCartas[1].Palo.Nombre) && (numerosReales.Contains(repartidora.MisCartas[0].Valor) && numerosReales.Contains(repartidora.MisCartas[1].Valor)) ) 
+            {
+                //Q trebol y K corazones
+                inicialProbability = (2) / (Maths.Combinaciones(50, 5));
+                mediumProbability =   ((2)* (46) ) / (Maths.Combinaciones(50, 5));
+            }
+
+            finalProbability = (inicialProbability + mediumProbability) * 100;
+            return finalProbability;
+        }
 
         public double probabilityOfFullHouse(Repartidora repartidora)
         {
@@ -46,31 +82,6 @@ namespace Poker
 
                 mediumProbability += (((Maths.Combinaciones(12, 3) * (Maths.Combinaciones(47, 2))) / (Maths.Combinaciones(50, 5)))); // divino
             }
-            finalProbability = (inicialProbability + mediumProbability) * 100;
-            return finalProbability;
-        }
-
-        public double probabilityOfEscaleraReal(Repartidora repartidora) // esta bien
-        {
-            numerosReales.Add("10");
-            numerosReales.Add("J");
-            numerosReales.Add("Q");
-            numerosReales.Add("K");
-            numerosReales.Add("A");
-            inicialProbability = (4) / (Maths.Combinaciones(50, 2));
-            if (repartidora.MisCartas[0].Palo.Nombre == repartidora.MisCartas[1].Palo.Nombre && numerosReales.Contains(repartidora.MisCartas[0].Valor) && numerosReales.Contains(repartidora.MisCartas[1].Valor)) // mis cartas son del mismo palo y son valores reales
-            {
-                mediumProbability = (Maths.Combinaciones(47, 2)) / (Maths.Combinaciones(50, 5));
-            }
-
-            if (numerosReales.Contains(repartidora.MisCartas[0].Valor) || numerosReales.Contains(repartidora.MisCartas[1].Valor)) // mis cartas son del mismo palo y son valores reales)
-            {
-                mediumProbability = (46) / (Maths.Combinaciones(50, 5));
-            }
-            // y si mis cartas son de difente palo y no son valores reales,
-            // serian la inicial.
-
-
             finalProbability = (inicialProbability + mediumProbability) * 100;
             return finalProbability;
         }
