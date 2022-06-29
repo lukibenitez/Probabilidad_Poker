@@ -8,70 +8,68 @@ namespace Poker
 
         private Repartidora repartidora = new Repartidora();
         private Probability probability = new Probability();
-        
+
         public void Start(Mazo mazo)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("\nBienvenido al programa que calcula las probabilidades del Poker!!\n 1- Pulsa '1' para que te repartamos tus 2 cartas aleatoreamente.\n 2- Pulsa '2' para elegir tus 2 cartas.");
-            int response = Convert.ToInt32(Console.ReadLine());
-            
-            switch (response)
+            Console.WriteLine("\nBienvenido al programa que calcula las probabilidades del Poker!!\n 1- Escriba 'Aleatorio' si deseas que te repartamos tus 2 cartas aleatoreamente.\n 2- Escriba 'Manual' para elegir tus 2 cartas de forma manual.");
+            string response = Console.ReadLine();
+
+
+            if (response.Trim() == "aleatorio")
             {
-                case 1: //anda bien
-                    repartidora.RepartirMisCartas(mazo);
-                    repartidora.RepartirCartasEnMesa(mazo);
+                repartidora.RepartirMisCartas(mazo);
+                repartidora.RepartirCartasEnMesa(mazo);
 
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine($"\nTus cartas son .");
-                    Printer.Print(repartidora.MisCartas);
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine($"\nLas cartas que salieron en la mesa son. ");
-                    Printer.Print(repartidora.CartasEnMesa);
-                    break;
-                case 2:
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    Console.WriteLine("¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y A-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    string newResponse = Console.ReadLine().ToString();
-                    //string newResponse = "K-corazones y K-trebol";
-                    
-                    string[] splitCards = newResponse.ToLower().Split("y");
-
-                    foreach (var card in splitCards)
-                    {
-                        string[] valueAndPalo = card.Split("-");
-                        transformStringToPalo(valueAndPalo[0], valueAndPalo[1], mazo);
-                    }
-                    Console.WriteLine($"\nTus cartas son .");
-                    Printer.Print(repartidora.MisCartas);
-
-
-                    Console.WriteLine($"\nLas cartas que salieron en la mesa son. ");
-                    repartidora.RepartirCartasEnMesa(mazo);
-                    Printer.Print(repartidora.CartasEnMesa);
-
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    throw new WrongResponseException("Escribiste una opción incorrecta o lo hiciste de manera incorrecta. Intente de nuevo.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"\nTus cartas son .");
+                Printer.Print(repartidora.MisCartas);
+                Console.ForegroundColor = ConsoleColor.White;
+                // Console.WriteLine($"Las cartas que salieron en la mesa son. ");
+                // Printer.Print(repartidora.CartasEnMesa);
             }
-            Console.WriteLine($"\nDe que jugada quieres calcular la probabilidad?\n ");
-            Console.WriteLine("Pulsa '1' para calcular la probabilidad de obtener Color. \nPulsa '2' para calcular la probabilidad de obtener Full House.\nPulsa '3' para calcular la probabilidad de obtener Escalera Real.");
-            int responseProbability = Convert.ToInt16(Console.ReadLine()); ;
-            //int responseProbability = 3;
+            else if (response.Trim() == "manual")
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("¿Qué cartas desea elegir?\n Escriba las cartas con el formato '6-corazones y A-diamantes'.\nLos palos disponibles son: 'Corazones', 'Diamantes', 'Picas' y 'Trebol'");
+                Console.ForegroundColor = ConsoleColor.White;
+                string newResponse = Console.ReadLine();
+                
+                string[] splitCards = newResponse.ToLower().Split("y");
+
+                foreach (var card in splitCards)
+                {
+                    string[] valueAndPalo = card.Split("-");
+                    transformStringToPalo(valueAndPalo[0], valueAndPalo[1], mazo);
+                }
+                Console.WriteLine($"\nTus cartas son .");
+                Printer.Print(repartidora.MisCartas);
+
+                // Console.WriteLine($"\nLas cartas que salieron en la mesa son. ");
+                // repartidora.RepartirCartasEnMesa(mazo);
+                //Printer.Print(repartidora.CartasEnMesa);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                throw new WrongResponseException("Escribiste una opción incorrecta o lo hiciste de manera incorrecta. Intente de nuevo.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            Console.WriteLine($"\nDe que jugada quieres calcular la probabilidad? ");
+            Console.WriteLine("\t-Pulsa '1' para calcular la probabilidad de obtener Color. \n\t-Pulsa '2' para calcular la probabilidad de obtener Escalera Real. \n\t-Pulsa '3' para calcular la probabilidad de obtener Full House.");
+            string responseProbability = Console.ReadLine();
+
 
             switch (responseProbability)
             {
-                case 1:
+                case "1":
                     Console.WriteLine($"La probabilidad de obtener un Color con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfColor(repartidora)}%");
                     break;
-                case 2:
-                    Console.WriteLine($"La probabilidad de obtener un Full House con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfFullHouse(repartidora)}%");
-                    break;
-                case 3:
+                case "2":
                     Console.WriteLine($"La probabilidad de obtener una Escalera Real con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfEscaleraReal(repartidora)}%");
+                    break;
+                case "3":
+                    Console.WriteLine($"La probabilidad de obtener un Full House con tus cartas ({repartidora.MisCartas[0].Descripcion}, {repartidora.MisCartas[1].Descripcion})  es de {probability.probabilityOfFullHouse(repartidora)}%");
                     break;
                 default:
                     break;
